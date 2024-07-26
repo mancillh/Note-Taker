@@ -13,5 +13,8 @@ const PORT = 3001;
 //Static Middleware
 app.use(express.static('public'));
 
+//Route for default
+app.get('/', (req, res) => res.send('Navigate to /notes'));
+
 //Run app
 app.listen (PORT, () => console.log(`APP running on PORT: ${PORT}`));
