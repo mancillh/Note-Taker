@@ -14,7 +14,9 @@ const PORT = 3001;
 app.use(express.static('public'));
 
 //Route for default
-app.get('/', (req, res) => res.send('Navigate to /notes'));
+app.get('/', (req, res) => 
+    res.sendFile(path.join(__dirname, '../../index.html'))
+);
 
 //Run app
 app.listen (PORT, () => console.log(`APP running on PORT: ${PORT}`));
