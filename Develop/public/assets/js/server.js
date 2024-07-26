@@ -18,5 +18,10 @@ app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname, '../../index.html'))
 );
 
+//Route for notes
+app.get('/notes', (req, res) => 
+    res.sendFile(path.join(__dirname, '../../notes.html'))
+);
+
 //Run app
 app.listen (PORT, () => console.log(`APP running on PORT: ${PORT}`));
