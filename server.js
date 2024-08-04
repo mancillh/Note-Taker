@@ -18,22 +18,25 @@ const PORT = process.env.PORT || 3001;
 //Static Middleware
 app.use(express.static('public'));
 
-// Registering middleware for body
+//Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", api);
 
+// GET Route for landing page with link to notes page
+app.get('/', (req, res) =>
+  res.sendFile(path.join(__dirname, './public/index.html'))
+);
 
-//Route for viewing notes page
+//GET Route for notes page
 app.get('/notes', (req, res) => 
   res.sendFile(path.join(__dirname, './public/notes.html'))
 );
 
-//Route for default
+//GET Route for default to landing page if user types in something unexpected after /
 app.get('*', (req, res) => 
   res.sendFile(path.join(__dirname, './public/index.html'))
 );
-
 
 //Run app
 app.listen (PORT, () => console.log(`APP running on PORT: ${PORT}`));
