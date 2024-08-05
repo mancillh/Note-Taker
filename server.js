@@ -4,10 +4,8 @@ const express = require('express');
 //Import PATH
 const path = require('path');
 
-const api = require('./routes/api.js');
+const api = require('./routes/notes.js');
 
-//to read and write db
-const fs = require('fs');
 
 //Initialize instance of Express.js
 const app = express();
