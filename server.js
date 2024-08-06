@@ -6,7 +6,6 @@ const path = require('path');
 
 const api = require('./routes/notes.js');
 
-
 //Initialize instance of Express.js
 const app = express();
 
@@ -21,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", api);
 
+console.log(__dirname);
 // GET Route for landing page with link to notes page
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, './public/index.html'))
