@@ -4,7 +4,7 @@ const express = require('express');
 //Import PATH
 const path = require('path');
 
-const api = require('./routes/notes.js');
+const api = require('./routes/index.js');
 
 //Initialize instance of Express.js
 const app = express();

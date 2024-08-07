@@ -15,7 +15,6 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
-
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
@@ -38,19 +37,13 @@ const getNotes = () =>
   });
 
 const saveNote = (note) =>
-  console.log("note");
   fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(note)
-    .then((res) => res.json())
   })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
-
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
