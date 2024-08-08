@@ -2,7 +2,7 @@
 const express = require('express');
 
 //Import PATH
-const path = require('path');
+const path = require('node:path');
 
 const api = require('./routes/index.js');
 
