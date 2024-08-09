@@ -4,6 +4,7 @@ const express = require('express');
 //Import PATH
 const path = require('node:path');
 
+//Locate router
 const api = require('./routes/index.js');
 
 //Initialize instance of Express.js

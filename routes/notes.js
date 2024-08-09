@@ -30,7 +30,7 @@ notes.post('/', (req, res) => {
 
   // If all the required properties are present
   if (title && text) {
-    // Variable for the note object we will save
+    // create a note object with title, text and id; uuid for assigning random id number to each note
     const newNote = {
       title,
       text,
@@ -45,7 +45,7 @@ notes.post('/', (req, res) => {
         // Convert string into JSON object
         const parsedNotes = JSON.parse(data);
 
-        // Add a new note
+        // Add a new note to the note array
         parsedNotes.push(newNote);
 
         // Write updated notes back to the file
@@ -59,12 +59,12 @@ notes.post('/', (req, res) => {
         );
       }
     });
-
+    // create a response object with a success status and details of the note that was just added
     const response = {
       status: 'success',
       body: newNote,
     };
-
+    // lets user know the note was posted successfully and view details of the note that was just added
     console.log(response);
     res.status(201).json(data);
   } else {
@@ -87,25 +87,25 @@ notes.delete('/:id', (req, res) => {
       //removing note with chosen id
       const { id } = req.params;
       const notesLessOne = parsedNotes.filter(newNote => newNote.id != id);
-    // updates db.json with one index removed"
-    writeToFile('../Note Taker/db/db.json', notesLessOne, null, 4,
-            (writeErr) =>
-              writeErr
-                ? console.error(writeErr)
-                : res.json(notesLessOne) 
-          )
-        }
-    })
-    //rewrites page with deleted item now erased
-    readFromFile('../Note Taker/db/db.json', 'utf8', async (err, data) => {
-      if (err) {
-        console.error(err);
-      } else {
-        // Convert string into JSON object
-        await res.json(JSON.parse(data));
-        console.info("Note successfully deleted")
-      }
-    });
+      // updates db.json with one index removed"
+      writeToFile('../Note Taker/db/db.json', notesLessOne, null, 4,
+        (writeErr) =>
+          writeErr
+            ? console.error(writeErr)
+            : res.json(notesLessOne)
+      )
+    }
+  })
+  //rewrites page with deleted note now erased
+  readFromFile('../Note Taker/db/db.json', 'utf8', async (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      // Convert string into JSON object
+      await res.json(JSON.parse(data));
+      console.info("Note successfully deleted")
+    }
   });
+});
 
 module.exports = notes; 
