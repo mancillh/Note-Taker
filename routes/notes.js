@@ -1,6 +1,7 @@
 const notes = require('express').Router()
 const uuid = require('../helpers/uuid.js');
-const db = require('../db/db.json')
+const db = require('../db/db.json');
+const { join } = require('path')
 
 // Helper functions for reading and writing to the JSON file
 const { readFromFile, writeToFile } = require('../helpers/fsUtils');
@@ -10,7 +11,7 @@ let data = db;
 //GET Route to read the db.JSON file and return all saved notes as JSON
 notes.get('/', (req, res) => {
   console.info(`${req.method} request received to view notes`);
-  readFromFile('../db/db.json', 'utf8', (err, data) => {
+  readFromFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
     } else {
@@ -38,7 +39,7 @@ notes.post('/', (req, res) => {
     };
 
     // Obtain existing notes
-    readFromFile('../db/db.json', 'utf8', (err, data) => {
+    readFromFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
       if (err) {
         console.error(err);
       } else {
@@ -50,7 +51,7 @@ notes.post('/', (req, res) => {
 
         // Write updated notes back to the file
         writeToFile(
-          '../db/db.json',
+          join(__dirname, '..', 'db', 'db.json'),
           parsedNotes, null, 4,
           (writeErr) =>
             writeErr
@@ -77,7 +78,7 @@ notes.delete('/:id', (req, res) => {
   console.info(`${req.method} request received to delete note`);
 
   //reads notes in db.json
-  readFromFile('../db/db.json', 'utf8', (err, data) => {
+  readFromFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
     } else {
@@ -88,7 +89,7 @@ notes.delete('/:id', (req, res) => {
       const { id } = req.params;
       const notesLessOne = parsedNotes.filter(newNote => newNote.id != id);
       // updates db.json with one index removed"
-      writeToFile('../db/db.json', notesLessOne, null, 4,
+      writeToFile(join(__dirname, '..', 'db', 'db.json'), notesLessOne, null, 4,
         (writeErr) =>
           writeErr
             ? console.error(writeErr)
@@ -97,7 +98,7 @@ notes.delete('/:id', (req, res) => {
     }
   })
   //rewrites page with deleted note now erased
-  readFromFile('../db/db.json', 'utf8', async (err, data) => {
+  readFromFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', async (err, data) => {
     if (err) {
       console.error(err);
     } else {
