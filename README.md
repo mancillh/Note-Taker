@@ -4,6 +4,10 @@
   ## Description
   This app can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
 
+  Link to Deployed Site: https://note-taker-0laq.onrender.com/
+  Link to GitHub repo: https://github.com/mancillh/Note-Taker
+  ![Note Taker screenshot](<images/screenshot of note taker.png>)
+
   ## Table of Contents 
   * [Description](#description)
   * [Installation](#installation)
