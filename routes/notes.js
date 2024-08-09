@@ -10,7 +10,7 @@ let data = db;
 //GET Route to read the db.JSON file and return all saved notes as JSON
 notes.get('/', (req, res) => {
   console.info(`${req.method} request received to view notes`);
-  readFromFile('../Note Taker/db/db.json', 'utf8', (err, data) => {
+  readFromFile('../db/db.json', 'utf8', (err, data) => {
     if (err) {
       console.error(err);
     } else {
@@ -38,7 +38,7 @@ notes.post('/', (req, res) => {
     };
 
     // Obtain existing notes
-    readFromFile('../Note Taker/db/db.json', 'utf8', (err, data) => {
+    readFromFile('../db/db.json', 'utf8', (err, data) => {
       if (err) {
         console.error(err);
       } else {
@@ -50,7 +50,7 @@ notes.post('/', (req, res) => {
 
         // Write updated notes back to the file
         writeToFile(
-          '../Note Taker/db/db.json',
+          '../db/db.json',
           parsedNotes, null, 4,
           (writeErr) =>
             writeErr
@@ -77,7 +77,7 @@ notes.delete('/:id', (req, res) => {
   console.info(`${req.method} request received to delete note`);
 
   //reads notes in db.json
-  readFromFile('../Note Taker/db/db.json', 'utf8', (err, data) => {
+  readFromFile('../db/db.json', 'utf8', (err, data) => {
     if (err) {
       console.error(err);
     } else {
@@ -88,7 +88,7 @@ notes.delete('/:id', (req, res) => {
       const { id } = req.params;
       const notesLessOne = parsedNotes.filter(newNote => newNote.id != id);
       // updates db.json with one index removed"
-      writeToFile('../Note Taker/db/db.json', notesLessOne, null, 4,
+      writeToFile('../db/db.json', notesLessOne, null, 4,
         (writeErr) =>
           writeErr
             ? console.error(writeErr)
@@ -97,7 +97,7 @@ notes.delete('/:id', (req, res) => {
     }
   })
   //rewrites page with deleted note now erased
-  readFromFile('../Note Taker/db/db.json', 'utf8', async (err, data) => {
+  readFromFile('../db/db.json', 'utf8', async (err, data) => {
     if (err) {
       console.error(err);
     } else {
