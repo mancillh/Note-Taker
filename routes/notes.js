@@ -76,30 +76,34 @@ notes.post('/', (req, res) => {
 notes.delete('/:id', (req, res) => {
   console.info(`${req.method} request received to delete note`);
 
+  //reads notes in db.json
   readFromFile('../Note Taker/db/db.json', 'utf8', (err, data) => {
     if (err) {
       console.error(err);
     } else {
       // Convert string into JSON object
       let parsedNotes = JSON.parse(data);
-
+      //filters notes for anything that does not match the chosen id and populates only those notes thus 
+      //removing note with chosen id
       const { id } = req.params;
       const notesLessOne = parsedNotes.filter(newNote => newNote.id != id);
-
+    // updates db.json with one index removed"
     writeToFile('../Note Taker/db/db.json', notesLessOne, null, 4,
             (writeErr) =>
               writeErr
                 ? console.error(writeErr)
-                : res.json(notesLessOne)
+                : res.json(notesLessOne) 
           )
         }
     })
+    //rewrites page with deleted item now erased
     readFromFile('../Note Taker/db/db.json', 'utf8', async (err, data) => {
       if (err) {
         console.error(err);
       } else {
         // Convert string into JSON object
         await res.json(JSON.parse(data));
+        console.info("Note successfully deleted")
       }
     });
   });
